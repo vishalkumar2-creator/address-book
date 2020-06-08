@@ -3,13 +3,16 @@ const bodyParser = require('body-parser');
 var User = require('../models/user');
 var passport = require('passport');
 var authenticate = require('../authenticate');
+const cors = require('./cors');
 
 
 var router = express.Router();
 router.use(bodyParser.json());
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+router.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get('/',cors.corsWithOptions, function (req, res, next) {
   User.find({})
     .then((users) => {
       res.statusCode = 200;
@@ -18,7 +21,7 @@ router.get('/', function (req, res, next) {
     }, (err) => next(err)).catch((err) => next(err));
 });
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup',cors.corsWithOptions, (req, res, next) => {
   User.register(new User({ username: req.body.username }),
     req.body.password, (err, user) => {
       if (err) {
@@ -69,7 +72,7 @@ router.post('/signup', (req, res, next) => {
   );
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login',cors.corsWithOptions, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -93,7 +96,7 @@ router.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
-router.get('/checkJWTToken', (req, res) => {
+router.get('/checkJWTToken',cors.corsWithOptions, (req, res) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) return next(err);
     if (!user) {
@@ -109,7 +112,7 @@ router.get('/checkJWTToken', (req, res) => {
   })(req, res);
 })
 
-router.get('/logout',(req, res, next) => {
+router.get('/logout',cors.corsWithOptions,(req, res, next) => {
   if (req.session) {
     req.session.destroy();
     res.clearCookie('session-id');
