@@ -10,9 +10,11 @@ var authenticate = require('./authenticate');
 var config = require('./config');
 
 const mongoose = require('mongoose');
+var Contacts = require('./models/contact');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var contactRouter = require('./routes/contactRouter');
 
 
 const url = config.mongoUrl;
@@ -40,6 +42,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/contacts',contactRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
