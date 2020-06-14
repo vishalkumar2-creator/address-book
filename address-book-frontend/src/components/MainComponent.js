@@ -21,13 +21,21 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <Login auth={this.props.auth}
-                    loginUser={this.props.loginUser}
-                    logoutUser={this.props.logoutUser}
-                    signupUser={this.props.signupUser} />
+
                 <Switch>
+                    <Route path='/login' component={() => <Login auth={this.props.auth}
+                        loginUser={this.props.loginUser}
+                        logoutUser={this.props.logoutUser}
+                        signupUser={this.props.signupUser} />} />
                     <Route path='/home' component={() => <Home />} />
+                    {
+                    this.props.auth.isAuthenticated
+                    ?
                     <Redirect to='/home' />
+                    :
+                    <Redirect to='/login' />
+                }
+
                 </Switch>
             </div>
         );
