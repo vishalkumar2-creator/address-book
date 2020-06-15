@@ -132,3 +132,46 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('creds');
     dispatch(receiveLogout())
 };
+
+export const fetchContacts = () => (dispatch) => {
+    dispatch(contactsLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'contacts', {
+        headers: {
+            'Authorization': bearer
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var err = new Error('Error ' + response.status + ' : ' + response.statusText);
+                err.response = response;
+                throw err;
+            }
+        },
+            error => {
+                var err = new Error(error.message);
+                throw err;
+            })
+        .then(response => response.json())
+        .then(contacts => dispatch(addContacts(contacts)))
+        .catch(error => dispatch(contactsFailed(error)));
+}
+
+export const contactsLoading = () => ({
+    type: ActionTypes.CONTACTS_LOADING
+})
+
+export const contactsFailed = (errMess) => ({
+    type: ActionTypes.CONTACTS_FAILED,
+    payload: errMess
+})
+
+export const addContacts = (contacts) => ({
+    type: ActionTypes.ADD_CONTACTS,
+    payload: contacts
+})

@@ -3,7 +3,7 @@ import Login from './LoginComponent';
 import Home from './HomeComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser, signupUser } from '../redux/ActionCreators';
+import { loginUser, signupUser, logoutUser} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -14,10 +14,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
-    signupUser: (user) => dispatch(signupUser(user))
+    signupUser: (user) => dispatch(signupUser(user)),
+    logoutUser: () => dispatch(logoutUser())
 });
 
 class Main extends Component {
+
     render() {
         return (
             <div>
@@ -27,14 +29,17 @@ class Main extends Component {
                         loginUser={this.props.loginUser}
                         logoutUser={this.props.logoutUser}
                         signupUser={this.props.signupUser} />} />
-                    <Route path='/home' component={() => <Home />} />
+                    <Route path='/home' component={() =>
+                        <Home auth={this.props.auth}
+                            logoutUser={this.props.logoutUser}
+                        />} />
                     {
-                    this.props.auth.isAuthenticated
-                    ?
-                    <Redirect to='/home' />
-                    :
-                    <Redirect to='/login' />
-                }
+                        this.props.auth.isAuthenticated
+                            ?
+                            <Redirect to='/home' />
+                            :
+                            <Redirect to='/login' />
+                    }
 
                 </Switch>
             </div>

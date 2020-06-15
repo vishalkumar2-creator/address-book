@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, Form, FormGroup, Label, Input, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Card, CardBody, Form, FormGroup, Label, Input, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 import { Redirect } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ class Login extends Component {
     }
     handleLogin(event) {
         this.props.loginUser({ username: this.username.value, password: this.password.value });
-        alert(JSON.stringify({ username: this.username.value, password: this.password.value }))
+        // alert(JSON.stringify({ username: this.username.value, password: this.password.value }))
         event.preventDefault();
     }
     handleRegister(event) {
@@ -36,18 +36,18 @@ class Login extends Component {
             description: this.description.value,
             image: "no image"
         });
-        alert(JSON.stringify({
-            username: this.usernameS.value,
-            password: this.passwordS.value,
-            firstname: this.firstname.value,
-            lastname: this.lastname.value,
-            phone: this.phone.value,
-            emailid: this.emailid.value,
-            tele: this.tele.value,
-            address: this.address.value,
-            description: this.description.value,
-            image: "no image"
-        }));
+        // alert(JSON.stringify({
+        //     username: this.usernameS.value,
+        //     password: this.passwordS.value,
+        //     firstname: this.firstname.value,
+        //     lastname: this.lastname.value,
+        //     phone: this.phone.value,
+        //     emailid: this.emailid.value,
+        //     tele: this.tele.value,
+        //     address: this.address.value,
+        //     description: this.description.value,
+        //     image: "no image"
+        // }));
         event.preventDefault();
     }
     render() {
