@@ -25,6 +25,7 @@ class AllContacts extends Component {
         console.log(this.props.contacts.contacts);
         return (
             <div>
+                <h3>Contact List</h3>
                 <ContactList Contacts={this.props.contacts.contacts}
                     isLoading={this.props.contacts.isLoading}
                     errMess={this.props.contacts.errMess} />

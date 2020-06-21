@@ -18,14 +18,14 @@ contactRouter.route('/')
                 if (contacts) {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json(contacts);
+                    res.json(contacts.contacts);
                 }
                 else {
                     Contacts.create({ user: req.user._id })
                         .then((contacts) => {
                             res.statusCode = 200;
                             res.setHeader('Content-Type', 'application/json');
-                            res.json(contacts);
+                            res.json(contacts.contacts);
                         }, (err) => next(err)).catch((err) => next(err));
                 }
             }, (err) => next(err)).catch((err) => next(err));

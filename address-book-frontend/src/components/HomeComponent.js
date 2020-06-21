@@ -4,11 +4,11 @@ import AllContacts from './AllContactsComponent';
 import { Jumbotron } from 'reactstrap';
 function Home(props) {
     return (
-        <div className="col-12">
+        <div>
             <NavBar auth={props.auth}
                 logoutUser={props.logoutUser}
             />
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-3 mt-3">
                 <AllContacts />
             </div>
         </div>
