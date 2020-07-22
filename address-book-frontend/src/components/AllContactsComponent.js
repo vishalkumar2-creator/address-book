@@ -22,7 +22,7 @@ class AllContacts extends Component {
     }
 
     render() {
-        console.log(this.props.contacts.contacts);
+        //console.log(this.props.contacts.contacts);
         return (
             <div>
                 <h3>Contact List</h3>

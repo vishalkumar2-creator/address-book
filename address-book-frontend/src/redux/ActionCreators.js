@@ -175,3 +175,8 @@ export const addContacts = (contacts) => ({
     type: ActionTypes.ADD_CONTACTS,
     payload: contacts
 })
+
+export const addDetails = (contact) => ({
+    type: ActionTypes.ADD_CONTACT,
+    payload:contact
+})

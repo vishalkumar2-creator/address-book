@@ -8,7 +8,8 @@ import { loginUser, signupUser, logoutUser} from '../redux/ActionCreators';
 const mapStateToProps = state => {
     return {
         auth: state.auth,
-        signup: state.signup
+        signup: state.signup,
+        //details: state.details 
     }
 }
 
@@ -32,6 +33,7 @@ class Main extends Component {
                     <Route path='/home' component={() =>
                         <Home auth={this.props.auth}
                             logoutUser={this.props.logoutUser}
+                            //details = {this.props.details.contact.filter((contact) => contact.username!=='') }
                         />} />
                     {
                         this.props.auth.isAuthenticated
