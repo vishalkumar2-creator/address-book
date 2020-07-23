@@ -1,7 +1,7 @@
 import React from 'react';
 import { } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
-import {connect} from 'react-redux';
+//import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
@@ -9,7 +9,7 @@ const mapStateToProps = state => {
     }
 }
 function ContactDetails(props) {
-    //console.log(props.details);
+    console.log(props.details);
     if (props.details) {
         return (
             <div className="container">
@@ -18,9 +18,9 @@ function ContactDetails(props) {
             </div>
         )
     }
-    else{
-        return(<div></div>);
+    else {
+        return (<div></div>);
     }
 }
 
-export default withRouter(connect(mapStateToProps)(ContactDetails));
+export default connect(mapStateToProps)(ContactDetails);

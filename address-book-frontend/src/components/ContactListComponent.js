@@ -1,49 +1,52 @@
 import React, { Component } from 'react';
-import { NavItem, Card, CardBody, Nav } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import { NavItem, Card, CardBody, Nav, Button } from 'reactstrap';
+//import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addDetails } from '../redux/ActionCreators';
-import { Details } from '../redux/detail';
+//import { Details } from '../redux/detail';
 
 const mapDispatchToProps = (dispatch) => ({
     addDetails: (contact) => dispatch(addDetails(contact))
 });
 
-class ContactList extends Component {
-    constructor(props) {
-        super(props);
+// const mapStateToProps = state => {
+//     return {
+//         details: state.details.contact
+//     }
+// }
+
+function ContactList(props) {
+    if (props.isLoading) {
+        return (<span className="fa fa-spinner fa-pulse fa-fw"></span>);
     }
-    render() {
-        if (this.props.isLoading) {
-            return (<span className="fa fa-spinner fa-pulse fa-fw"></span>);
-        }
-        else if (this.props.errMess) {
-            return (<div className="bg-danger"><p>{this.props.errMess}</p></div>);
+    else if (props.errMess) {
+        return (<div className="bg-danger"><p>{props.errMess}</p></div>);
+    }
+    else {
+        if (props.Contacts) {
+            const contactl = props.Contacts.map((contact) => {
+                return (
+                    <NavItem key={contact._id} >
+                        <Card >
+                            <CardBody >
+                                <Button onClick={() => addDetails(contact)}>{contact.username}</Button>
+                            </CardBody>
+                        </Card>
+                    </NavItem>)
+
+            });
+            return (
+                <Nav vertical>
+                    {contactl}
+                </Nav>
+            );
         }
         else {
-            if (this.props.Contacts) {
-                const contactl = this.props.Contacts.map((contact) => {
-                    return (
-                        <NavItem key={contact._id} onClick = {() => addDetails(contact)} >
-                            <Card>
-                                <CardBody>{contact.username}</CardBody>
-                            </Card>
-                        </NavItem>)
-
-                });
-                return (
-                    <Nav vertical>
-                        {contactl}
-                    </Nav>
-                );
-            }
-            else {
-                return (
-                    <div><p>No contacts present</p></div>
-                );
-            }
+            return (
+                <div><p>No contacts present</p></div>
+            );
         }
     }
 }
 
-export default withRouter(connect(null,mapDispatchToProps)(ContactList));
+export default connect(null, mapDispatchToProps)(ContactList);

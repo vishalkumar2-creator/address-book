@@ -10,11 +10,13 @@ function Home(props) {
             <NavBar auth={props.auth}
                 logoutUser={props.logoutUser}
             />
-            <div className="col-12 col-md-3 mt-3">
-                <AllContacts />
-            </div>
-            <div className ="col-12 col-md-9">
-                <ContactDetails />
+            <div className="row">
+                <div className="col-12 col-md-3 mt-3">
+                    <AllContacts />
+                </div>
+                <div className="col-12 col-md-9">
+                    <ContactDetails />
+                </div>
             </div>
         </div>
 
